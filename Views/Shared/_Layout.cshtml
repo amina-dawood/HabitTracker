@@ -1,0 +1,889 @@
+﻿@* <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - HabitFlow</title>
+
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <!-- AOS Animation Library -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- Mobile enhancements -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="HabitFlow">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="msapplication-TileColor" content="#1e40af">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+    <meta name="theme-color" content="#1e40af">
+
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="/icon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icon-192.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico">
+
+    <!-- Modern Design System -->
+    <link rel="stylesheet" href="~/css/design-system.css" />
+    <link rel="stylesheet" href="~/css/layout.css" />
+
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-family-heading: 'Poppins', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family-primary);
+            line-height: 1.6;
+            color: var(--neutral-800);
+            background: linear-gradient(135deg, var(--neutral-50) 0%, var(--primary-50) 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-family-heading);
+            font-weight: 700;
+            line-height: 1.2;
+            margin: 0 0 1rem 0;
+            color: var(--neutral-900);
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Focus States */
+        *:focus {
+            outline: 2px solid var(--primary-500);
+            outline-offset: 2px;
+        }
+
+        /* Selection */
+        ::selection {
+            background: rgb(59 130 246 / 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== MODERN PROFESSIONAL NAVBAR ===== -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <!-- Brand -->
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                <div class="brand-logo">
+                    <div class="brand-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 2L28 8V24L16 30L4 24V8L16 2Z" fill="url(#gradient)" stroke="url(#gradient)" stroke-width="2"/>
+                            <path d="M12 12L16 16L20 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <defs>
+                                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="var(--primary-400)"/>
+                                    <stop offset="100%" stop-color="var(--primary-600)"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div class="brand-text">
+                        <span class="brand-name">HabitFlow</span>
+                        <span class="brand-tagline">Build Better Habits</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <div class="navbar-nav">
+                <a class="nav-link" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-house"></i>
+                    <span>Home</span>
+                </a>
+                <a class="nav-link" asp-controller="Home" asp-action="Dashboard">
+                    <i class="bi bi-speedometer2"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a class="nav-link" asp-controller="Habits" asp-action="ViewAll">
+                    <i class="bi bi-list-check"></i>
+                    <span>My Habits</span>
+                </a>
+                <a class="nav-link" asp-controller="Reports" asp-action="Index">
+                    <i class="bi bi-bar-chart"></i>
+                    <span>Reports</span>
+                </a>
+            </div>
+
+            <!-- Auth Section -->
+            <div class="navbar-auth">
+                <partial name="_LoginPartial" />
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div class="mobile-menu">
+            <a class="mobile-nav-link" asp-controller="Home" asp-action="Index">
+                <i class="bi bi-house"></i>
+                <span>Home</span>
+            </a>
+            <a class="mobile-nav-link" asp-controller="Home" asp-action="Dashboard">
+                <i class="bi bi-speedometer2"></i>
+                <span>Dashboard</span>
+            </a>
+            <a class="mobile-nav-link" asp-controller="Habits" asp-action="ViewAll">
+                <i class="bi bi-list-check"></i>
+                <span>My Habits</span>
+            </a>
+            <a class="mobile-nav-link" asp-controller="Reports" asp-action="Index">
+                <i class="bi bi-bar-chart"></i>
+                <span>Reports</span>
+            </a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="mobile-nav-link admin-nav-link" href="/Admin/Admin/Index">
+                    <i class="bi bi-shield"></i>
+                    <span>Admin Panel</span>
+                </a>
+            }
+            <div class="mobile-auth">
+                <partial name="_LoginPartial" />
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+        <div class="container">
+            @RenderBody()
+        </div>
+    </main>
+
+    <!-- ===== MODERN FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="brand-icon">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16 2L28 8V24L16 30L4 24V8L16 2Z" fill="url(#footer-gradient)" stroke="url(#footer-gradient)" stroke-width="2"/>
+                                <path d="M12 12L16 16L20 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <defs>
+                                    <linearGradient id="footer-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="var(--primary-400)"/>
+                                        <stop offset="100%" stop-color="var(--primary-600)"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <div class="brand-text">
+                            <span class="brand-name">HabitFlow</span>
+                            <span class="brand-tagline">Build Better Habits</span>
+                        </div>
+                    </div>
+                    <p class="footer-description">
+                        Transform your life with consistent habits. Track, analyze, and achieve your goals with our modern habit tracking platform.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <i class="bi bi-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="LinkedIn">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                        <li><a href="@Url.Action("Dashboard", "Home")">Dashboard</a></li>
+                        <li><a href="@Url.Action("ViewAll", "Habits")">My Habits</a></li>
+                        <li><a href="@Url.Action("Index", "Reports")">Reports</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API Reference</a></li>
+                        <li><a href="#">Status</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">GDPR</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 HabitFlow. All rights reserved.</p>
+                <p>Made with <i class="bi bi-heart-fill" style="color: var(--error-500);"></i> for building better habits</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Check if content is too short and add padding
+            const contentHeight = $('main').height();
+            const windowHeight = $(window).height();
+            const navbarHeight = $('.navbar').outerHeight();
+            const footerHeight = $('footer').outerHeight();
+
+            if (contentHeight < (windowHeight - navbarHeight - footerHeight)) {
+                $('main').css('min-height', (windowHeight - navbarHeight - footerHeight) + 'px');
+            }
+
+            // Add active class to current nav item
+            const currentPath = window.location.pathname;
+            $('.nav-link').each(function() {
+                if ($(this).attr('href') === currentPath) {
+                    $(this).addClass('active');
+                }
+            });
+        });
+
+        // Enhanced Navbar Scroll Effects
+        $(window).scroll(function() {
+            const scrollTop = $(this).scrollTop();
+            const navbar = $('.navbar');
+
+            if (scrollTop > 50) {
+                navbar.addClass('scrolled');
+            } else {
+                navbar.removeClass('scrolled');
+            }
+
+            // Parallax effect for background elements
+            const scrolled = scrollTop / 1000;
+            $('.bg-element-1').css('transform', `translateY(${scrolled * 20}px) rotate(${scrolled * 10}deg)`);
+            $('.bg-element-2').css('transform', `translateY(${scrolled * -15}px) rotate(${scrolled * -8}deg)`);
+            $('.bg-element-3').css('transform', `translateY(${scrolled * 25}px) rotate(${scrolled * 12}deg)`);
+        });
+
+        // Smooth scroll for anchor links
+        $('a[href^="#"]').on('click', function(event) {
+            const target = $(this.getAttribute('href'));
+            if (target.length) {
+                event.preventDefault();
+                $('html, body').stop().animate({
+                    scrollTop: target.offset().top - $('.navbar').outerHeight()
+                }, 800, 'easeInOutQuart');
+            }
+        });
+
+        // Enhanced mobile menu
+        $('.navbar-toggler').on('click', function() {
+            const isExpanded = $(this).attr('aria-expanded') === 'true';
+            const navbar = $('.navbar');
+
+            if (!isExpanded) {
+                navbar.addClass('mobile-open');
+            } else {
+                navbar.removeClass('mobile-open');
+            }
+        });
+
+        // SignalR Real-time Updates
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/habitHub")
+            .withAutomaticReconnect()
+            .build();
+
+        connection.start().catch(function (err) {
+            return console.error(err.toString());
+        });
+
+        // Handle habit completion notifications
+        connection.on("ReceiveHabitCompleted", function (habitId, habitName) {
+            // Show success notification
+            showNotification(`🎉 Habit "${habitName}" completed!`, 'success');
+
+            // Update UI if on habits page
+            if (window.location.pathname.includes('/Habits')) {
+                updateHabitStatus(habitId, true);
+            }
+        });
+
+        // Handle progress update notifications
+        connection.on("ReceiveProgressUpdate", function (habitId, progress) {
+            // Update progress bar if on habits page
+            if (window.location.pathname.includes('/Habits')) {
+                updateProgressBar(habitId, progress);
+            }
+        });
+
+        // Handle general habit updates
+        connection.on("ReceiveHabitUpdate", function (message, habitId) {
+            showNotification(message, 'info');
+        });
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = $(`
+                <div class="alert alert-${type} alert-dismissible fade show position-fixed" style="top: 100px; right: 20px; z-index: 9999; min-width: 300px;">
+                    <i class="bi ${type === 'success' ? 'bi-check-circle' : type === 'error' ? 'bi-exclamation-triangle' : 'bi-info-circle'} me-2"></i>
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `);
+
+            $('body').append(notification);
+
+            setTimeout(() => {
+                notification.alert('close');
+            }, 5000);
+        }
+
+        // Update habit status in UI
+        function updateHabitStatus(habitId, completed) {
+            const habitCard = $(`.habit-card[data-habit-id="${habitId}"]`);
+            if (habitCard.length) {
+                const statusBadge = habitCard.find('.status-badge');
+                const progressBar = habitCard.find('.progress-bar');
+
+                if (completed) {
+                    statusBadge.removeClass('status-pending').addClass('status-completed').text('Completed');
+                    progressBar.css('width', '100%');
+                }
+            }
+        }
+
+        // Update progress bar
+        function updateProgressBar(habitId, progress) {
+            const habitCard = $(`.habit-card[data-habit-id="${habitId}"]`);
+            if (habitCard.length) {
+                const progressBar = habitCard.find('.progress-bar');
+                const progressText = habitCard.find('.progress-text');
+
+                progressBar.css('width', progress + '%');
+                progressText.text(progress + '% Complete');
+            }
+        }
+    </script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html> *@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - HabitFlow</title>
+
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <!-- AOS Animation Library -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- Mobile enhancements -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="HabitFlow">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="msapplication-TileColor" content="#1e40af">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+    <meta name="theme-color" content="#1e40af">
+
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="/icon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icon-192.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico">
+
+    <!-- Modern Design System -->
+    <link rel="stylesheet" href="~/css/design-system.css" />
+    <link rel="stylesheet" href="~/css/layout.css" />
+
+
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-family-heading: 'Poppins', sans-serif;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            font-family: var(--font-family-primary);
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            min-height: 100vh;
+        }
+
+        /* Fix navbar text colors - IMPORTANT */
+        .navbar {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+        }
+
+            .navbar .brand-name,
+            .navbar .brand-tagline,
+            .navbar .nav-link,
+            .navbar .mobile-nav-link,
+            .navbar-auth a,
+            .navbar-auth button {
+                color: white !important;
+            }
+
+                .navbar .nav-link:hover,
+                .navbar .mobile-nav-link:hover {
+                    color: #e2e8f0 !important;
+                    background: rgba(255, 255, 255, 0.1) !important;
+                }
+
+                /* Fix active state */
+                .navbar .nav-link.active {
+                    color: #60a5fa !important;
+                    background: rgba(96, 165, 250, 0.1) !important;
+                }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Focus States */
+        *:focus {
+            outline: 2px solid #3b82f6;
+            outline-offset: 2px;
+        }
+
+        /* Selection */
+        ::selection {
+            background: rgba(59, 130, 246, 0.2);
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-family-heading);
+            font-weight: 700;
+            line-height: 1.2;
+            color: #1e293b;
+        }
+
+    </style>
+</head>
+<body class="user-layout">
+
+    <!-- ===== MODERN PROFESSIONAL NAVBAR ===== -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <!-- Brand -->
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                <div class="brand-logo">
+                    <div class="brand-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 2L28 8V24L16 30L4 24V8L16 2Z" fill="url(#gradient)" stroke="url(#gradient)" stroke-width="2" />
+                            <path d="M12 12L16 16L20 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            <defs>
+                                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="var(--primary-400)" />
+                                    <stop offset="100%" stop-color="var(--primary-600)" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div class="brand-text">
+                        <span class="brand-name">HabitFlow</span>
+                        <span class="brand-tagline">Build Better Habits</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <div class="navbar-nav">
+                <a class="nav-link" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-house"></i>
+                    <span>Home</span>
+                </a>
+                <a class="nav-link" asp-controller="Home" asp-action="Dashboard">
+                    <i class="bi bi-speedometer2"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a class="nav-link" asp-controller="Habits" asp-action="ViewAll">
+                    <i class="bi bi-list-check"></i>
+                    <span>My Habits</span>
+                </a>
+                <a class="nav-link" asp-controller="Reports" asp-action="Index">
+                    <i class="bi bi-bar-chart"></i>
+                    <span>Reports</span>
+                </a>
+            </div>
+
+            <!-- Auth Section -->
+            <div class="navbar-auth">
+                <partial name="_LoginPartial" />
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div class="mobile-menu">
+            <a class="mobile-nav-link" asp-controller="Home" asp-action="Index">
+                <i class="bi bi-house"></i>
+                <span>Home</span>
+            </a>
+            <a class="mobile-nav-link" asp-controller="Home" asp-action="Dashboard">
+                <i class="bi bi-speedometer2"></i>
+                <span>Dashboard</span>
+            </a>
+            <a class="mobile-nav-link" asp-controller="Habits" asp-action="ViewAll">
+                <i class="bi bi-list-check"></i>
+                <span>My Habits</span>
+            </a>
+            <a class="mobile-nav-link" asp-controller="Reports" asp-action="Index">
+                <i class="bi bi-bar-chart"></i>
+                <span>Reports</span>
+            </a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="mobile-nav-link admin-nav-link" href="/Admin/Admin/Index">
+                    <i class="bi bi-shield"></i>
+                    <span>Admin Panel</span>
+                </a>
+            }
+            <div class="mobile-auth">
+                <partial name="_LoginPartial" />
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+        <div class="container">
+            @RenderBody()
+        </div>
+    </main>
+
+    <!-- ===== MODERN FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="brand-icon">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16 2L28 8V24L16 30L4 24V8L16 2Z" fill="url(#footer-gradient)" stroke="url(#footer-gradient)" stroke-width="2" />
+                                <path d="M12 12L16 16L20 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <defs>
+                                    <linearGradient id="footer-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="var(--primary-400)" />
+                                        <stop offset="100%" stop-color="var(--primary-600)" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <div class="brand-text">
+                            <span class="brand-name">HabitFlow</span>
+                            <span class="brand-tagline">Build Better Habits</span>
+                        </div>
+                    </div>
+                    <p class="footer-description">
+                        Transform your life with consistent habits. Track, analyze, and achieve your goals with our modern habit tracking platform.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <i class="bi bi-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="LinkedIn">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                        <li><a href="@Url.Action("Dashboard", "Home")">Dashboard</a></li>
+                        <li><a href="@Url.Action("ViewAll", "Habits")">My Habits</a></li>
+                        <li><a href="@Url.Action("Index", "Reports")">Reports</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API Reference</a></li>
+                        <li><a href="#">Status</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">GDPR</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 HabitFlow. All rights reserved.</p>
+                <p>Made with <i class="bi bi-heart-fill" style="color: var(--error-500);"></i> for building better habits</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Check if content is too short and add padding
+            const contentHeight = $('main').height();
+            const windowHeight = $(window).height();
+            const navbarHeight = $('.navbar').outerHeight();
+            const footerHeight = $('footer').outerHeight();
+
+            if (contentHeight < (windowHeight - navbarHeight - footerHeight)) {
+                $('main').css('min-height', (windowHeight - navbarHeight - footerHeight) + 'px');
+            }
+
+            // Add active class to current nav item
+            const currentPath = window.location.pathname;
+            $('.nav-link').each(function() {
+                if ($(this).attr('href') === currentPath) {
+                    $(this).addClass('active');
+                }
+            });
+        });
+
+        // Enhanced Navbar Scroll Effects
+        $(window).scroll(function() {
+            const scrollTop = $(this).scrollTop();
+            const navbar = $('.navbar');
+
+            if (scrollTop > 50) {
+                navbar.addClass('scrolled');
+            } else {
+                navbar.removeClass('scrolled');
+            }
+
+            // Parallax effect for background elements
+            const scrolled = scrollTop / 1000;
+            $('.bg-element-1').css('transform', `translateY(${scrolled * 20}px) rotate(${scrolled * 10}deg)`);
+            $('.bg-element-2').css('transform', `translateY(${scrolled * -15}px) rotate(${scrolled * -8}deg)`);
+            $('.bg-element-3').css('transform', `translateY(${scrolled * 25}px) rotate(${scrolled * 12}deg)`);
+        });
+
+        // Smooth scroll for anchor links
+        $('a[href^="#"]').on('click', function(event) {
+            const target = $(this.getAttribute('href'));
+            if (target.length) {
+                event.preventDefault();
+                $('html, body').stop().animate({
+                    scrollTop: target.offset().top - $('.navbar').outerHeight()
+                }, 800, 'easeInOutQuart');
+            }
+        });
+
+        // Enhanced mobile menu
+        $('.navbar-toggler').on('click', function() {
+            const isExpanded = $(this).attr('aria-expanded') === 'true';
+            const navbar = $('.navbar');
+
+            if (!isExpanded) {
+                navbar.addClass('mobile-open');
+            } else {
+                navbar.removeClass('mobile-open');
+            }
+        });
+
+        // SignalR Real-time Updates
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/habitHub")
+            .withAutomaticReconnect()
+            .build();
+
+        connection.start().catch(function (err) {
+            return console.error(err.toString());
+        });
+
+        // Handle habit completion notifications
+        connection.on("ReceiveHabitCompleted", function (habitId, habitName) {
+            // Show success notification
+            showNotification(`🎉 Habit "${habitName}" completed!`, 'success');
+
+            // Update UI if on habits page
+            if (window.location.pathname.includes('/Habits')) {
+                updateHabitStatus(habitId, true);
+            }
+        });
+
+        // Handle progress update notifications
+        connection.on("ReceiveProgressUpdate", function (habitId, progress) {
+            // Update progress bar if on habits page
+            if (window.location.pathname.includes('/Habits')) {
+                updateProgressBar(habitId, progress);
+            }
+        });
+
+        // Handle general habit updates
+        connection.on("ReceiveHabitUpdate", function (message, habitId) {
+            showNotification(message, 'info');
+        });
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = $(`
+                <div class="alert alert-${type} alert-dismissible fade show position-fixed" style="top: 100px; right: 20px; z-index: 9999; min-width: 300px;">
+                    <i class="bi ${type === 'success' ? 'bi-check-circle' : type === 'error' ? 'bi-exclamation-triangle' : 'bi-info-circle'} me-2"></i>
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `);
+
+            $('body').append(notification);
+
+            setTimeout(() => {
+                notification.alert('close');
+            }, 5000);
+        }
+
+        // Update habit status in UI
+        function updateHabitStatus(habitId, completed) {
+            const habitCard = $(`.habit-card[data-habit-id="${habitId}"]`);
+            if (habitCard.length) {
+                const statusBadge = habitCard.find('.status-badge');
+                const progressBar = habitCard.find('.progress-bar');
+
+                if (completed) {
+                    statusBadge.removeClass('status-pending').addClass('status-completed').text('Completed');
+                    progressBar.css('width', '100%');
+                }
+            }
+        }
+
+        // Update progress bar
+        function updateProgressBar(habitId, progress) {
+            const habitCard = $(`.habit-card[data-habit-id="${habitId}"]`);
+            if (habitCard.length) {
+                const progressBar = habitCard.find('.progress-bar');
+                const progressText = habitCard.find('.progress-text');
+
+                progressBar.css('width', progress + '%');
+                progressText.text(progress + '% Complete');
+            }
+        }
+            // Apply padding to all pages
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.paddingTop = '20px';
+
+            // Also fix for pages that have specific wrappers
+            const wrappers = document.querySelectorAll('.dashboard-wrapper, .habits-wrapper, .reports-wrapper');
+            wrappers.forEach(wrapper => {
+                wrapper.style.paddingTop = '0';
+                wrapper.style.marginTop = '0';
+            });
+        });
+    </script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

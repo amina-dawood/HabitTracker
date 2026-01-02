@@ -1,0 +1,16 @@
+@model HabitTracker.Models.ReportViewModel
+
+@{
+    ViewData["Title"] = "Reports & Analytics";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h1>Reports Dashboard Test</h1>
+            <p>Total Habits: @Model.TotalHabits</p>
+            <p>Active Habits: @Model.ActiveHabits</p>
+            <p>Completed Habits: @Model.CompletedHabits</p>
+        </div>
+    </div>
+</div>

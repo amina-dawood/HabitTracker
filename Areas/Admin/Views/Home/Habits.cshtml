@@ -1,0 +1,241 @@
+@model HabitTracker.Areas.Admin.Models.HabitListViewModel
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Habit Management";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="h3 mb-0 text-gray-800">Habit Management</h1>
+                <p class="text-muted">Monitor and manage all user habits</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Statistics Cards -->
+<div class="row mb-4">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stats-card primary">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <div class="stats-number">@Model.TotalHabits</div>
+                    <div class="stats-title">Total Habits</div>
+                </div>
+                <div class="text-primary">
+                    <i class="bi bi-clipboard-check" style="font-size: 2rem;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stats-card success">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <div class="stats-number">@Model.ActiveHabits</div>
+                    <div class="stats-title">Active Habits</div>
+                </div>
+                <div class="text-success">
+                    <i class="bi bi-activity" style="font-size: 2rem;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stats-card warning">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <div class="stats-number">@Model.CompletedHabits</div>
+                    <div class="stats-title">Completed</div>
+                </div>
+                <div class="text-warning">
+                    <i class="bi bi-check-circle-fill" style="font-size: 2rem;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stats-card info">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <div class="stats-number">@Model.CategoryStats.Count</div>
+                    <div class="stats-title">Categories</div>
+                </div>
+                <div class="text-info">
+                    <i class="bi bi-tags-fill" style="font-size: 2rem;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Category Breakdown -->
+@if (Model.CategoryStats.Count > 0)
+{
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="admin-card">
+                <div class="card-header">
+                    <h6 class="m-0 font-weight-bold text-white">
+                        <i class="bi bi-pie-chart-fill me-2"></i>Habits by Category
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        @foreach (var category in Model.CategoryStats)
+                        {
+                            var percentage = Model.TotalHabits > 0 ? (double)category.Value / Model.TotalHabits * 100 : 0;
+                            <div class="col-md-6 col-lg-3 mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="fw-bold">@category.Key</span>
+                                    <span class="badge bg-primary">@category.Value</span>
+                                </div>
+                                <div class="progress" style="height: 8px;">
+                                    <div class="progress-bar bg-primary" role="progressbar"
+                                         style="width: @percentage%"
+                                         aria-valuenow="@percentage" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                </div>
+                                <small class="text-muted">@percentage.ToString("0.0")%</small>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Habits Table -->
+<div class="row">
+    <div class="col-12">
+        <div class="admin-card">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold text-white">
+                    <i class="bi bi-table me-2"></i>All Habits
+                </h6>
+            </div>
+            <div class="card-body">
+                @if (Model.Habits.Count > 0)
+                {
+                    <div class="table-responsive">
+                        <table class="table admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Habit Name</th>
+                                    <th>User</th>
+                                    <th>Category</th>
+                                    <th>Frequency</th>
+                                    <th>Progress</th>
+                                    <th>Status</th>
+                                    <th>Streak</th>
+                                    <th>Created</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var habit in Model.Habits)
+                                {
+                                    <tr>
+                                        <td>
+                                            <code>@habit.Id</code>
+                                        </td>
+                                        <td>
+                                            <strong>@habit.Name</strong>
+                                            <br>
+                                            <small class="text-muted">@habit.Description</small>
+                                        </td>
+                                        <td>@habit.UserEmail</td>
+                                        <td>
+                                            <span class="badge bg-secondary">@habit.Category</span>
+                                        </td>
+                                        <td>@habit.Frequency</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="progress me-2 flex-grow-1" style="height: 6px; width: 60px;">
+                                                    <div class="progress-bar" role="progressbar"
+                                                         style="width: @habit.Progress%"
+                                                         aria-valuenow="@habit.Progress" aria-valuemin="0" aria-valuemax="100">
+                                                    </div>
+                                                </div>
+                                                <span class="small">@habit.Progress%</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            @if (habit.IsCompleted)
+                                            {
+                                                <span class="badge bg-success">
+                                                    <i class="bi bi-check me-1"></i>Completed
+                                                </span>
+                                            }
+                                            else if (habit.IsActive)
+                                            {
+                                                <span class="badge bg-primary">
+                                                    <i class="bi bi-play-fill me-1"></i>Active
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-secondary">
+                                                    <i class="bi bi-pause-fill me-1"></i>Inactive
+                                                </span>
+                                            }
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <div class="fw-bold">@habit.CurrentStreak</div>
+                                                <small class="text-muted">Best: @habit.LongestStreak</small>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <small class="text-muted">
+                                                @habit.CreatedDate.ToString("MMM dd, yyyy")
+                                            </small>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group btn-group-sm">
+                                                <button class="btn btn-outline-info btn-sm" title="View Details">
+                                                    <i class="bi bi-eye"></i>
+                                                </button>
+                                                <button class="btn btn-outline-warning btn-sm" title="Edit Habit">
+                                                    <i class="bi bi-pencil"></i>
+                                                </button>
+                                                @if (habit.IsActive)
+                                                {
+                                                    <button class="btn btn-outline-secondary btn-sm" title="Deactivate">
+                                                        <i class="bi bi-slash-circle"></i>
+                                                    </button>
+                                                }
+                                                else
+                                                {
+                                                    <button class="btn btn-outline-success btn-sm" title="Activate">
+                                                        <i class="bi bi-check"></i>
+                                                    </button>
+                                                }
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center text-muted py-5">
+                        <i class="bi bi-clipboard-x mb-3" style="font-size: 4rem;"></i>
+                        <h4>No Habits Found</h4>
+                        <p>There are no habits in the system yet.</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,201 @@
+/*html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+
+
+ ===== Hero & Text Animations ===== 
+.fade-slide {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeSlideIn 1s ease-out forwards;
+}
+
+    .fade-slide.delay-1 {
+        animation-delay: 0.5s;
+    }
+
+@keyframes fadeSlideIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}*/
+
+
+
+
+ /*===== Card Hover Animation ===== 
+.pop-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #c0c4cc;
+}
+
+    .pop-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+    }
+
+ ===== Button Animation ===== 
+.animate-btn {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .animate-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 0 15px rgba(0,123,255,0.6);
+    }
+
+ ===== Hero Section Animations ===== 
+.hero-section {
+    overflow: hidden;  ensure smooth slide animations 
+}
+
+.hero-title {
+    opacity: 0;
+    transform: translateX(-30px);
+    animation: slideFadeIn 1s forwards ease-out;
+}
+
+.hero-subtitle {
+    opacity: 0;
+    transform: translateX(-30px);
+    animation: slideFadeIn 1s forwards ease-out 0.3s;  delay 
+}
+
+.hero-btn {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: btnFadeIn 1s forwards ease-out 0.6s;  delay 
+}
+
+ ===== Keyframes ===== 
+@keyframes slideFadeIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideFadeInRight {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes btnFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-img {
+    opacity: 0;
+    transform: translateX(30px);
+    animation: slideFadeInRight 1s forwards ease-out 0.5s,  initial slide-in 
+    floatHero 3s ease-in-out infinite 1.5s;  floating effect 
+}
+
+
+@keyframes floatHero {
+    0% {
+        transform: translateY(0) translateX(30px);
+    }
+
+    50% {
+        transform: translateY(-10px) translateX(30px);
+    }
+
+    100% {
+        transform: translateY(0) translateX(30px);
+    }
+}
+
+
+
+
+
+ ===== Dashboard Page Animations ===== 
+.dash-fade {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: dashFadeSlide 1s forwards ease-out;
+}
+
+    .dash-fade.delay-1 {
+        animation-delay: 0.2s;
+    }
+
+    .dash-fade.delay-2 {
+        animation-delay: 0.4s;
+    }
+
+    .dash-fade.delay-3 {
+        animation-delay: 0.6s;
+    }
+
+    .dash-fade.delay-4 {
+        animation-delay: 0.8s;
+    }
+
+@keyframes dashFadeSlide {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+ Card hover for dashboard 
+.dash-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: #c0c4cc
+}
+
+    .dash-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+    }
+
+ Buttons 
+.dash-btn {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .dash-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 0 15px rgba(0,123,255,0.6);
+    }
+
+
+
+*/

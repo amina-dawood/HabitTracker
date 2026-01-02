@@ -1,0 +1,5 @@
+HabitLogs table created successfully!
+
+(7 rows affected)
+Migrated existing completion data to HabitLogs.
+HabitLogs migration completed.

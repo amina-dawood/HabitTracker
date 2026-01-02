@@ -1,0 +1,211 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Edit Habit";
+}
+
+<link rel="stylesheet" href="~/css/pages/edit-habit.css" />
+
+<div class="edit-wrapper">
+    <div class="edit-header-section">
+        <div class="container">
+            <div class="edit-header-content">
+                <h1>Edit Habit</h1>
+                <p>Modify your habit details and settings</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="form-container">
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-error">
+                    <i class="bi bi-exclamation-triangle"></i>
+                    @TempData["Error"]
+                </div>
+            }
+
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success">
+                    <i class="bi bi-check-circle"></i>
+                    @TempData["Success"]
+                </div>
+            }
+
+            <form method="post" asp-route-returnUrl="@Url.Action("ViewAll", "Habits")">
+                <input type="hidden" name="Id" value="@Model.Id" />
+
+                <div class="form-section">
+                    <h3 class="form-section-title">
+                        <i class="bi bi-info-circle"></i>
+                        Basic Information
+                    </h3>
+
+                    <div class="form-group">
+                        <label for="Name" class="form-label">Habit Name</label>
+                        <input type="text" name="Name" value="@Model.Name" class="form-control" placeholder="e.g., Exercise daily, Read a book" />
+                        <span class="text-danger" data-valmsg-for="Name"></span>
+                        <small class="help-text">Choose a clear, specific name for your habit</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Description" class="form-label">Description</label>
+                        <textarea name="Description" class="form-control form-textarea" rows="3"
+                                  placeholder="Describe your habit in detail...">@Model.Description</textarea>
+                        <span class="text-danger" data-valmsg-for="Description"></span>
+                        <small class="help-text">Provide context and motivation for this habit</small>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3 class="form-section-title">
+                        <i class="bi bi-calendar-check"></i>
+                        Frequency & Duration
+                    </h3>
+
+                    <div class="form-group">
+                        <label class="form-label">How often do you want to do this habit?</label>
+                        <div class="frequency-options">
+                            <div class="frequency-option">
+                                <input type="radio" id="daily" name="Frequency" value="Daily" checked="@(Model.Frequency == "Daily")" />
+                                <label for="daily">
+                                    <i class="bi bi-sun"></i>
+                                    Daily
+                                </label>
+                            </div>
+                            <div class="frequency-option">
+                                <input type="radio" id="weekly" name="Frequency" value="Weekly" checked="@(Model.Frequency == "Weekly")" />
+                                <label for="weekly">
+                                    <i class="bi bi-calendar-week"></i>
+                                    Weekly
+                                </label>
+                            </div>
+                            <div class="frequency-option">
+                                <input type="radio" id="weekdays" name="Frequency" value="Weekdays" checked="@(Model.Frequency == "Weekdays")" />
+                                <label for="weekdays">
+                                    <i class="bi bi-building"></i>
+                                    Weekdays Only
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="TargetDays" class="form-label">Target Duration (Days)</label>
+                        <input type="number" name="TargetDays" value="@Model.TargetDays" class="form-control" min="1" max="365" />
+                        <span class="text-danger" data-valmsg-for="TargetDays"></span>
+                        <small class="help-text">How many days do you want to maintain this habit?</small>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3 class="form-section-title">
+                        <i class="bi bi-tags"></i>
+                        Category
+                    </h3>
+
+                    <div class="form-group">
+                        <label for="Category" class="form-label">Habit Category</label>
+                        <select name="Category" class="form-select">
+                            <option value="Health" selected="@(Model.Category == "Health")">Health & Fitness</option>
+                            <option value="Learning" selected="@(Model.Category == "Learning")">Learning & Education</option>
+                            <option value="Productivity" selected="@(Model.Category == "Productivity")">Productivity</option>
+                            <option value="Mindfulness" selected="@(Model.Category == "Mindfulness")">Mindfulness</option>
+                            <option value="Social" selected="@(Model.Category == "Social")">Social</option>
+                            <option value="Creative" selected="@(Model.Category == "Creative")">Creative</option>
+                            <option value="Other" selected="@(Model.Category == "Other")">Other</option>
+                        </select>
+                        <span class="text-danger" data-valmsg-for="Category"></span>
+                        <small class="help-text">Categorizing helps you track different areas of your life</small>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3 class="form-section-title">
+                        <i class="bi bi-bar-chart"></i>
+                        Progress
+                    </h3>
+
+                    @{
+                        var progressPercent = Model.Progress + "%";
+                    }
+                    <div class="progress-section">
+                        <div class="progress-label">
+                            <span>Current Progress</span>
+                            <span>@progressPercent</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: @progressPercent"></div>
+                        </div>
+                        <small class="help-text">You can update your progress below</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Progress" class="form-label">Update Progress (%)</label>
+                        <input type="number" name="Progress" value="@Model.Progress" class="form-control" min="0" max="100" />
+                        <span class="text-danger" data-valmsg-for="Progress"></span>
+                        <small class="help-text">Set your current progress (0-100%)</small>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn btn-submit">
+                        <i class="bi bi-check-circle"></i>
+                        <span>Update Habit</span>
+                    </button>
+                    <a href="@Url.Action("ViewAll", "Habits")" class="btn btn-cancel">
+                        <i class="bi bi-arrow-left"></i>
+                        <span>Back to Habits</span>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Form submission handling
+        document.querySelector('form')?.addEventListener('submit', function(e) {
+            const submitBtn = this.querySelector('.btn-submit');
+            const originalText = submitBtn.innerHTML;
+
+            // Show loading state
+            submitBtn.innerHTML = '<i class="bi bi-hourglass-split"></i><span>Updating...</span>';
+            submitBtn.disabled = true;
+
+            // Submit form normally
+        });
+
+        // Real-time validation
+        const nameInput = document.querySelector('input[name="Name"]');
+        const descInput = document.querySelector('textarea[name="Description"]');
+
+        nameInput?.addEventListener('input', function() {
+            if (this.value.length < 3) {
+                this.setCustomValidity('Habit name must be at least 3 characters');
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+
+        descInput?.addEventListener('input', function() {
+            if (this.value.length < 10) {
+                this.setCustomValidity('Description must be at least 10 characters');
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+
+        // Update progress bar in real-time
+        const progressInput = document.querySelector('input[name="Progress"]');
+        const progressBar = document.querySelector('.progress-bar');
+
+        progressInput?.addEventListener('input', function() {
+            const value = Math.max(0, Math.min(100, this.value));
+            progressBar.style.width = value + '%';
+        });
+    </script>
+}

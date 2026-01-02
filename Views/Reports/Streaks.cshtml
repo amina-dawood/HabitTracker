@@ -1,0 +1,166 @@
+@model List<HabitTracker.Models.StreakViewModel>
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Streak Reports";
+}
+
+<link rel="stylesheet" href="~/css/pages/streaks.css" />
+
+<div class="streaks-wrapper">
+    <!-- Streaks Header Section -->
+    <div class="streaks-header-section">
+        <h1>Streak Reports</h1>
+        <p>Track your consistency and longest streaks</p>
+    </div>
+
+    <!-- Main Content -->
+        <!-- Summary Statistics -->
+        @{
+            int longestStreakEver = 0;
+            int currentBestStreak = 0;
+            int activeStreaks = 0;
+
+            foreach (var streak in Model)
+            {
+                if (streak.LongestStreak > longestStreakEver)
+                {
+                    longestStreakEver = streak.LongestStreak;
+                }
+
+                if (streak.CurrentStreak > currentBestStreak)
+                {
+                    currentBestStreak = streak.CurrentStreak;
+                }
+
+                if (streak.CurrentStreak > 0)
+                {
+                    activeStreaks++;
+                }
+            }
+        }
+
+        <div class="summary-stats-grid">
+            <div class="summary-stat-card">
+                <div class="summary-stat-icon">
+                    <i class="bi bi-trophy-fill"></i>
+                </div>
+                <span class="summary-stat-number">@longestStreakEver</span>
+                <span class="summary-stat-label">Longest Streak Ever</span>
+            </div>
+
+            <div class="summary-stat-card">
+                <div class="summary-stat-icon">
+                    <i class="bi bi-fire"></i>
+                </div>
+                <span class="summary-stat-number">@currentBestStreak</span>
+                <span class="summary-stat-label">Best Current Streak</span>
+            </div>
+
+            <div class="summary-stat-card">
+                <div class="summary-stat-icon">
+                    <i class="bi bi-graph-up"></i>
+                </div>
+                <span class="summary-stat-number">@activeStreaks</span>
+                <span class="summary-stat-label">Active Streaks</span>
+            </div>
+
+            <div class="summary-stat-card">
+                <div class="summary-stat-icon">
+                    <i class="bi bi-calendar-check"></i>
+                </div>
+                <span class="summary-stat-number">@Model.Count</span>
+                <span class="summary-stat-label">Total Habits</span>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons-grid">
+            <a href="@Url.Action("Create", "Habits")" class="action-button-card">
+                <div class="action-button-icon">
+                    <i class="bi bi-plus-circle"></i>
+                </div>
+                <h3>Create New Habit</h3>
+                <p>Start a new habit to build more streaks</p>
+            </a>
+
+            <a href="@Url.Action("ViewAll", "Habits")" class="action-button-card">
+                <div class="action-button-icon">
+                    <i class="bi bi-list-ul"></i>
+                </div>
+                <h3>Manage Habits</h3>
+                <p>Update your habits and track progress</p>
+            </a>
+
+            <a href="@Url.Action("Index", "Reports")" class="action-button-card">
+                <div class="action-button-icon">
+                    <i class="bi bi-bar-chart"></i>
+                </div>
+                <h3>View Reports</h3>
+                <p>See detailed analytics and insights</p>
+            </a>
+        </div>
+
+        <!-- Streak Leaderboard -->
+        @if (Model != null && Model.Count > 0)
+        {
+            <div class="leaderboard-card">
+                <div class="leaderboard-header">
+                    <h2>Streak Leaderboard</h2>
+                    <p>Your habits ranked by current streak performance</p>
+                </div>
+
+                @{
+                    int index = 0;
+                }
+                @foreach (var streak in Model)
+                {
+                    index++;
+                    <div class="leaderboard-item">
+                        <div class="leaderboard-rank">@index</div>
+                        <div class="leaderboard-habit-name">
+                            <i class="bi bi-check-circle"></i>
+                            @streak.HabitName
+                        </div>
+                        <div class="leaderboard-current-streak">
+                            <span class="leaderboard-streak-number">@streak.CurrentStreak</span>
+                            <span class="leaderboard-streak-label">Current</span>
+                        </div>
+                        <div class="leaderboard-best-streak">
+                            <span class="leaderboard-streak-number">@streak.LongestStreak</span>
+                            <span class="leaderboard-streak-label">Best</span>
+                        </div>
+                        <div class="leaderboard-last-completed">
+                            @if (streak.LastCompletedDate.HasValue)
+                            {
+                                <span>@streak.LastCompletedDate.Value.ToString("MMM dd, yyyy")</span>
+                            }
+                            else
+                            {
+                                <span class="text-muted">Never</span>
+                            }
+                        </div>
+                        <div class="leaderboard-status">
+                            <span class="@(streak.CurrentStreak > 0 ? "status-active" : "status-paused")">
+                                @(streak.CurrentStreak > 0 ? "Active" : "Paused")
+                            </span>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="empty-state-modern">
+                <div class="empty-icon">
+                    <i class="bi bi-fire"></i>
+                </div>
+                <h3>No streaks yet</h3>
+                <p>You haven't started any habits yet. Begin building streaks by creating and completing your first habits!</p>
+                <a href="@Url.Action("Create", "Habits")" class="btn-create">
+                    <i class="bi bi-plus-circle"></i>
+                    <span>Create Your First Habit</span>
+                </a>
+            </div>
+        }
+    </div>
+</div>

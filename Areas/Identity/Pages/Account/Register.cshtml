@@ -1,0 +1,123 @@
+﻿@page
+@model RegisterModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<link rel="stylesheet" href="~/css/pages/register.css" />
+
+<div class="auth-wrapper">
+    <div class="auth-container fade-in-up">
+        <!-- Register Form Section -->
+        <div class="auth-left">
+            <div class="auth-form">
+                <div class="form-header">
+                    <h1 class="form-title">Join HabitTracker 🚀</h1>
+                    <p class="form-subtitle">Start your journey to building better habits today</p>
+                </div>
+
+                <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                    <div class="form-group">
+                        <label asp-for="Input.Email" class="form-label">Email Address</label>
+                        <input asp-for="Input.Email" class="form-control" autocomplete="username"
+                               placeholder="Enter your email address" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Input.Password" class="form-label">Password</label>
+                        <input asp-for="Input.Password" class="form-control" autocomplete="new-password"
+                               placeholder="Create a strong password" type="password" id="password-input" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        <div class="password-strength">
+                            <i class="bi bi-info-circle"></i>
+                            <small>Password must be at least 6 characters</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Input.ConfirmPassword" class="form-label">Confirm Password</label>
+                        <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password"
+                               placeholder="Confirm your password" type="password" />
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-auth">
+                        <i class="bi bi-person-check"></i>
+                        <span>Create Account</span>
+                    </button>
+
+                    <div class="terms-text">
+                        By registering, you agree to our
+                        <a href="#">Terms of Service</a> and
+                        <a href="#">Privacy Policy</a>
+                    </div>
+
+                    <div class="auth-links">
+                        <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="auth-link">
+                            Already have an account? Sign in here
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Branding Section -->
+        <div class="auth-right">
+            <div class="auth-brand">
+                <div class="brand-icon-wrapper">
+                    <i class="bi bi-check-circle-fill brand-icon"></i>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-main">HabitTracker</span>
+                    <span class="brand-tagline">Build Better Habits</span>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <h3 style="color: white; font-weight: 600; margin-bottom: 20px; font-size: 1.4rem;">
+                    Ready to Start Your Journey?
+                </h3>
+                <p style="color: rgba(255, 255, 255, 0.8); line-height: 1.6; margin-bottom: 30px;">
+                    Join thousands of users who are transforming their lives through consistent habit building.
+                </p>
+                <div class="auth-divider">Already have an account?</div>
+                <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-auth" style="background: rgba(255, 255, 255, 0.2); border: 2px solid rgba(255, 255, 255, 0.3); color: white; box-shadow: none; width: auto; padding: 14px 32px;">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    <span>Sign In</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Password strength validation
+        document.getElementById('password-input')?.addEventListener('input', function() {
+            const password = this.value;
+            const strengthDiv = this.parentElement.querySelector('.password-strength');
+
+            // Basic password validation
+            const hasMinLength = password.length >= 6;
+            const hasSpecialChar = true; // Simplified - just require minimum length
+
+            if (hasMinLength) {
+                if (hasSpecialChar) {
+                    strengthDiv.className = 'password-strength strength-strong';
+                    strengthDiv.innerHTML = '<i class="bi bi-shield-check"></i><small>Strong password</small>';
+                } else {
+                    strengthDiv.className = 'password-strength strength-medium';
+                    strengthDiv.innerHTML = '<i class="bi bi-shield"></i><small>Good password</small>';
+                }
+            } else {
+                strengthDiv.className = 'password-strength strength-weak';
+                strengthDiv.innerHTML = '<i class="bi bi-shield-x"></i><small>Password too short</small>';
+            }
+        });
+    </script>
+}

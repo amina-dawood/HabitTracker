@@ -1,0 +1,3 @@
+Added IsAchieved column to Habits table
+Added AchievedDate column to Habits table
+Achievement fields migration completed

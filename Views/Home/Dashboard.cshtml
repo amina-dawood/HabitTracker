@@ -1,0 +1,329 @@
+@model List<HabitTracker.Models.Habit>
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Dashboard";
+}
+
+<link rel="stylesheet" href="~/css/pages/dashboard.css" />
+
+<div class="dashboard-wrapper">
+    <!-- Header Section -->
+    <div class="dashboard-header">
+        <div class="container">
+            <h1>Dashboard</h1>
+            <p>Welcome back! Here's an overview of your habit tracking progress</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="dashboard-content">
+        <!-- Welcome Message -->
+        <div class="welcome-section">
+            <div class="welcome-content">
+                <h2>Good morning! 🌅</h2>
+                <p>Every small step you take today brings you closer to the person you want to become. Keep going!</p>
+            </div>
+            <div class="motivational-quote">
+                <blockquote>
+                    "The journey of a thousand miles begins with a single step."
+                    <cite>— Lao Tzu</cite>
+                </blockquote>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="bi bi-list-check"></i>
+                </div>
+                <span class="stat-number">@ViewBag.ActiveHabits</span>
+                <span class="stat-label">Active Habits</span>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="bi bi-check-circle"></i>
+                </div>
+                <span class="stat-number">@ViewBag.CompletedHabits</span>
+                <span class="stat-label">Done Today</span>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="bi bi-fire"></i>
+                </div>
+                <span class="stat-number">@ViewBag.TotalStreaks</span>
+                <span class="stat-label">Active Streaks</span>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="bi bi-trophy"></i>
+                </div>
+                <span class="stat-number">@ViewBag.SuccessRate%</span>
+                <span class="stat-label">Success Rate</span>
+            </div>
+
+            @if (ViewBag.AchievedHabits > 0)
+            {
+                <div class="stat-card achievement-card">
+                    <div class="stat-icon">
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                    <span class="stat-number">@ViewBag.AchievedHabits</span>
+                    <span class="stat-label">Goals Achieved</span>
+                </div>
+            }
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <a href="@Url.Action("Create", "Habits")" class="action-btn">
+                <div class="action-icon">
+                    <i class="bi bi-plus-circle"></i>
+                </div>
+                <h3>Create New Habit</h3>
+                <p>Start tracking a new habit to improve your daily routine</p>
+            </a>
+
+            <a href="@Url.Action("ViewAll", "Habits")" class="action-btn">
+                <div class="action-icon">
+                    <i class="bi bi-list-ul"></i>
+                </div>
+                <h3>View All Habits</h3>
+                <p>Manage and update all your existing habits</p>
+            </a>
+
+            <a href="@Url.Action("Index", "Reports")" class="action-btn">
+                <div class="action-icon">
+                    <i class="bi bi-bar-chart"></i>
+                </div>
+                <h3>View Reports</h3>
+                <p>Analyze your progress and habit statistics</p>
+            </a>
+        </div>
+
+        <!-- Today's Habits Section -->
+        <div class="habits-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="bi bi-calendar-day"></i>
+                    Today's Habits
+                </h2>
+                <div class="date-display">
+                    <i class="bi bi-calendar"></i>
+                    @DateTime.Today.ToString("dddd, MMMM dd, yyyy")
+                </div>
+            </div>
+
+            @if (Model != null && Model.Count > 0)
+            {
+                <div class="habits-grid">
+                    @foreach (var habit in Model)
+                    {
+                        <div class="habit-card">
+                            <div class="habit-header">
+                                <h3 class="habit-name">@habit.Name</h3>
+                                @if (!string.IsNullOrEmpty(habit.Description))
+                                {
+                                    <p class="habit-description">@habit.Description</p>
+                                }
+                            </div>
+
+                            <div class="habit-stats">
+                                <div class="stat-item">
+                                    <span class="stat-label">Current Streak</span>
+                                    <span class="stat-value">@habit.CurrentStreak days</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Best Streak</span>
+                                    <span class="stat-value">@habit.LongestStreak days</span>
+                                </div>
+                            </div>
+
+                            <div class="progress-section">
+                                <div class="progress-info">
+                                    <span>Progress to @habit.TargetDays days</span>
+                                    <span class="progress-percentage">@Math.Round(habit.ProgressPercentage, 1)%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill @habit.ProgressColor" style="width: @habit.ProgressPercentage%"></div>
+                                </div>
+                            </div>
+
+                            <div class="habit-actions">
+                                @if (!habit.IsCompleted)
+                                {
+                                    <button class="btn-mark-complete" onclick="markComplete(@habit.Id)">
+                                        <i class="bi bi-check-circle"></i>
+                                        Mark Complete
+                                    </button>
+                                }
+                                else
+                                {
+                                    <div class="completed-badge">
+                                        <i class="bi bi-check-circle-fill"></i>
+                                        Completed Today!
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="empty-state">
+                    <div class="empty-icon">
+                        <i class="bi bi-plus-circle"></i>
+                    </div>
+                    <h3>No habits yet</h3>
+                    <p>You haven't created any habits yet. Start building better habits by creating your first one!</p>
+                    <a href="@Url.Action("Create", "Habits")" class="btn-create">
+                        <i class="bi bi-plus-circle"></i>
+                        <span>Create Your First Habit</span>
+                    </a>
+                </div>
+            }
+        </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Mark habit as complete
+        function markComplete(id) {
+            const button = event.target.closest('.btn-mark-complete');
+            if (button) {
+                button.disabled = true;
+                button.innerHTML = '<i class="bi bi-hourglass"></i> Updating...';
+            }
+
+            fetch('@Url.Action("MarkComplete", "Habits")', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                },
+                body: 'id=' + id
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Update the habit card UI
+                    updateHabitCard(id, data);
+                    showSuccessMessage('Habit completed successfully!');
+
+                    // Update dashboard statistics
+                    updateDashboardStats();
+                } else {
+                    alert('Error: ' + data.message);
+                    if (button) {
+                        button.disabled = false;
+                        button.innerHTML = '<i class="bi bi-check-circle"></i> Mark Complete';
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while updating the habit.');
+                if (button) {
+                    button.disabled = false;
+                    button.innerHTML = '<i class="bi bi-check-circle"></i> Mark Complete';
+                }
+            });
+        }
+
+        function updateHabitCard(habitId, data) {
+            const habitCard = document.querySelector(`[onclick*="markComplete(${habitId})"]`).closest('.habit-card');
+
+            // Update current streak
+            const currentStreakElement = habitCard.querySelector('.stat-item:nth-child(1) .stat-value');
+            if (currentStreakElement && data.currentStreak !== undefined) {
+                currentStreakElement.textContent = data.currentStreak + ' days';
+            }
+
+            // Update longest streak if it changed
+            const longestStreakElement = habitCard.querySelector('.stat-item:nth-child(2) .stat-value');
+            if (longestStreakElement && data.longestStreak !== undefined) {
+                longestStreakElement.textContent = data.longestStreak + ' days';
+            }
+
+            // Update progress bar
+            const progressFill = habitCard.querySelector('.progress-fill');
+            const progressPercentage = habitCard.querySelector('.progress-percentage');
+            if (progressFill && progressPercentage && data.progressPercentage !== undefined) {
+                progressFill.style.width = data.progressPercentage + '%';
+                progressPercentage.textContent = Math.round(data.progressPercentage * 10) / 10 + '%';
+            }
+
+            // Replace button with completed badge
+            const actionsDiv = habitCard.querySelector('.habit-actions');
+            actionsDiv.innerHTML = `
+                <div class="completed-badge">
+                    <i class="bi bi-check-circle-fill"></i>
+                    Completed Today!
+                </div>
+            `;
+        }
+
+        function updateDashboardStats() {
+            // Update completed habits count
+            const completedCount = document.querySelectorAll('.habit-card .completed-badge').length;
+            const totalHabits = document.querySelectorAll('.habit-card').length;
+            const successRate = totalHabits > 0 ? Math.round((completedCount / totalHabits) * 100) : 0;
+
+            // Update stats in the stats grid if they exist
+            const completedStat = document.querySelector('.stat-card:nth-child(2) .stat-number');
+            const rateStat = document.querySelector('.stat-card:nth-child(4) .stat-number');
+
+            if (completedStat) completedStat.textContent = completedCount;
+            if (rateStat) rateStat.textContent = successRate + '%';
+        }
+
+        function showSuccessMessage(message) {
+            // Simple success message - you could enhance this with a toast notification
+            const notification = document.createElement('div');
+            notification.className = 'success-notification';
+            notification.innerHTML = `
+                <div style="position: fixed; top: 20px; right: 20px; background: #10b981; color: white; padding: 12px 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); z-index: 1000;">
+                    <i class="bi bi-check-circle"></i> ${message}
+                </div>
+            `;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Delete habit function
+        function deleteHabit(id, name) {
+            if (confirm(`Are you sure you want to delete "${name}"? This action cannot be undone.`)) {
+                fetch('@Url.Action("Delete", "Habits")', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                    },
+                    body: 'id=' + id
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while deleting the habit.');
+                });
+            }
+        }
+    </script>
+}

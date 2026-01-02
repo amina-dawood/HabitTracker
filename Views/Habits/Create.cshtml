@@ -1,0 +1,165 @@
+@model HabitTracker.Models.CreateHabitViewModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Create Habit";
+}
+
+<link rel="stylesheet" href="~/css/pages/create-habit.css" />
+
+<div class="create-wrapper">
+    <div class="create-header-section">
+        <div class="container">
+            <div class="create-header-content">
+                <h1>Create a New Habit</h1>
+                <p>Start your journey to building better habits today</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="form-container">
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-error">
+                    <i class="bi bi-exclamation-triangle"></i>
+                    @TempData["Error"]
+                </div>
+            }
+
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success">
+                    <i class="bi bi-check-circle"></i>
+                    @TempData["Success"]
+                </div>
+            }
+
+            <form id="createHabitForm" method="post" asp-route-returnUrl="@Url.Action("ViewAll", "Habits")">
+                <div class="form-section">
+                    <h3 class="form-section-title">
+                        <i class="bi bi-info-circle"></i>
+                        Basic Information
+                    </h3>
+
+                    <div class="form-group">
+                        <label asp-for="Name" class="form-label">Habit Name</label>
+                        <input asp-for="Name" class="form-control" placeholder="e.g., Exercise daily, Read a book" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                        <small class="help-text">Choose a clear, specific name for your habit</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Description" class="form-label">Description <span class="text-muted">(Optional)</span></label>
+                        <textarea asp-for="Description" class="form-control form-textarea" rows="3"
+                                  placeholder="Describe your habit in detail..."></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                        <small class="help-text">Provide context and motivation for this habit</small>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3 class="form-section-title">
+                        <i class="bi bi-calendar-check"></i>
+                        Frequency & Duration
+                    </h3>
+
+                    <div class="form-group">
+                        <label class="form-label">How often do you want to do this habit?</label>
+                        <div class="frequency-options">
+                            <div class="frequency-option">
+                                <input type="radio" id="daily" asp-for="Frequency" value="Daily" />
+                                <label for="daily">
+                                    <i class="bi bi-sun"></i>
+                                    Daily
+                                </label>
+                            </div>
+                            <div class="frequency-option">
+                                <input type="radio" id="weekly" asp-for="Frequency" value="Weekly" />
+                                <label for="weekly">
+                                    <i class="bi bi-calendar-week"></i>
+                                    Weekly
+                                </label>
+                            </div>
+                            <div class="frequency-option">
+                                <input type="radio" id="weekdays" asp-for="Frequency" value="Weekdays" />
+                                <label for="weekdays">
+                                    <i class="bi bi-building"></i>
+                                    Weekdays Only
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="TargetDays" class="form-label">Target Duration (Days)</label>
+                        <input asp-for="TargetDays" class="form-control" min="1" max="365" />
+                        <span asp-validation-for="TargetDays" class="text-danger"></span>
+                        <small class="help-text">How many days do you want to maintain this habit?</small>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3 class="form-section-title">
+                        <i class="bi bi-tags"></i>
+                        Category
+                    </h3>
+
+                    <div class="form-group">
+                        <label asp-for="Category" class="form-label">Habit Category</label>
+                        <select asp-for="Category" class="form-select">
+                            <option value="Health">Health & Fitness</option>
+                            <option value="Learning">Learning & Education</option>
+                            <option value="Productivity">Productivity</option>
+                            <option value="Mindfulness">Mindfulness</option>
+                            <option value="Social">Social</option>
+                            <option value="Creative">Creative</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <span asp-validation-for="Category" class="text-danger"></span>
+                        <small class="help-text">Categorizing helps you track different areas of your life</small>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn btn-submit">
+                        <i class="bi bi-plus-circle"></i>
+                        <span>Create Habit</span>
+                    </button>
+                    <a href="@Url.Action("ViewAll", "Habits")" class="btn btn-cancel">
+                        <i class="bi bi-arrow-left"></i>
+                        <span>Back to Habits</span>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Form submission handling
+        document.getElementById('createHabitForm')?.addEventListener('submit', function(e) {
+            const submitBtn = this.querySelector('.btn-submit');
+            const originalText = submitBtn.innerHTML;
+
+            // Show loading state
+            submitBtn.innerHTML = '<i class="bi bi-hourglass-split"></i><span>Creating...</span>';
+            submitBtn.disabled = true;
+
+            // Submit form normally
+            // The form will be submitted to the server
+        });
+
+        // Real-time validation
+        const nameInput = document.querySelector('input[name="Name"]');
+        
+        nameInput?.addEventListener('input', function() {
+            if (this.value.length < 3) {
+                this.setCustomValidity('Habit name must be at least 3 characters');
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+    </script>
+}

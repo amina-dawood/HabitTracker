@@ -1,0 +1,70 @@
+{
+  "name": "HabitTracker - Build Better Habits",
+  "short_name": "HabitTracker",
+  "description": "A modern habit tracking application to help you build and maintain positive daily habits",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8FAFC",
+  "theme_color": "#7C3AED",
+  "orientation": "portrait-primary",
+  "categories": ["productivity", "lifestyle", "health"],
+  "lang": "en-US",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16 32x32 48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Add New Habit",
+      "short_name": "New Habit",
+      "description": "Create a new habit to track",
+      "url": "/Habits/Create",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "View Dashboard",
+      "short_name": "Dashboard",
+      "description": "Check your habit progress",
+      "url": "/Home/Dashboard",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "My Habits",
+      "short_name": "Habits",
+      "description": "View all your habits",
+      "url": "/Habits/ViewAll",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

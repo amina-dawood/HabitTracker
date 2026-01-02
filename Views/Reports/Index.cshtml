@@ -1,0 +1,194 @@
+@model HabitTracker.Models.ReportViewModel
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Reports & Analytics";
+}
+
+<link rel="stylesheet" href="~/css/pages/reports.css" />
+
+<div class="reports-wrapper">
+    <!-- Reports Header Section -->
+    <div class="reports-header-section">
+        <h1>Reports & Analytics</h1>
+        <p>Track your habit-building progress and insights</p>
+    </div>
+
+    <!-- Main Content -->
+    <div style="padding-top: 20px; padding-bottom: 40px;">
+
+        <!-- Key Statistics Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div class="stat-icon primary">
+                        <i class="bi bi-clipboard-check-fill"></i>
+                    </div>
+                </div>
+                <div class="stat-label">Total Habits</div>
+                <div class="stat-value">@Model.TotalHabits</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div class="stat-icon success">
+                        <i class="bi bi-activity"></i>
+                    </div>
+                </div>
+                <div class="stat-label">Active Habits</div>
+                <div class="stat-value">@Model.ActiveHabits</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div class="stat-icon info">
+                        <i class="bi bi-check-circle-fill"></i>
+                    </div>
+                </div>
+                <div class="stat-label">Done Today</div>
+                <div class="stat-value">@Model.CompletedHabits</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div class="stat-icon secondary">
+                        <i class="bi bi-clock"></i>
+                    </div>
+                </div>
+                <div class="stat-label">Pending Habits</div>
+                <div class="stat-value">@Model.PendingHabits</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div class="stat-icon warning">
+                        <i class="bi bi-percent"></i>
+                    </div>
+                </div>
+                <div class="stat-label">Today's Success Rate</div>
+                <div class="stat-value">@Model.CompletionRate.ToString()%</div>
+            </div>
+        </div>
+
+        <!-- Action Buttons Grid -->
+        <div class="action-buttons-grid">
+            <a href="@Url.Action("Categories")" class="action-btn">
+                <i class="bi bi-pie-chart-fill"></i>
+                <span>Categories</span>
+            </a>
+            <a href="@Url.Action("Streaks")" class="action-btn">
+                <i class="bi bi-fire"></i>
+                <span>Streaks</span>
+            </a>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <!-- Category Breakdown -->
+            <div class="content-card">
+                <div class="content-card-header">
+                    <i class="bi bi-pie-chart-fill me-2"></i>Habits by Category
+                </div>
+                <div class="content-card-body">
+                    @if (Model.CategoryStats.Count > 0)
+                    {
+                        @foreach (var category in Model.CategoryStats)
+                        {
+                            var percentage = Model.TotalHabits > 0 ? (double)category.Value / Model.TotalHabits * 100 : 0;
+                            <div class="category-item">
+                                <div class="category-header">
+                                    <span class="category-name">@category.Key</span>
+                                    <span class="category-count">@category.Value habits</span>
+                                </div>
+                                <div class="category-progress">
+                                    <div class="category-progress-bar" style="width: @percentage.ToString()%" ></div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="text-center text-muted py-4">
+                            <i class="bi bi-pie-chart fa-3x mb-3" style="color: #CBD5E1;"></i>
+                            <p>No category data available</p>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Recent Completions -->
+            <div class="content-card">
+                <div class="content-card-header">
+                    <i class="bi bi-check-circle-fill me-2"></i>Recent Completions (Last 30 Days)
+                </div>
+                <div class="content-card-body">
+                    @if (Model.RecentCompletions.Count > 0)
+                    {
+                        <div class="timeline-modern">
+                            @for (int i = 0; i < Model.RecentCompletions.Count && i < 5; i++)
+                            {
+                                var completion = Model.RecentCompletions[i];
+                                <div class="timeline-item-modern">
+                                    <div class="timeline-marker-modern">
+                                        <i class="bi bi-check-lg"></i>
+                                    </div>
+                                    <div class="timeline-content-modern">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="mb-1" style="font-size: 1rem; font-weight: 700; color: #1E293B;">@completion.HabitName</h6>
+                                            <small class="text-muted" style="font-size: 0.85rem;">@completion.CompletionDate.ToString("MMM dd")</small>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="badge badge-success" style="font-size: 0.8rem; padding: 6px 12px;">
+                                                <i class="bi bi-calendar-check me-1"></i>@completion.Category
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center text-muted py-4">
+                            <i class="bi bi-calendar-check fa-3x mb-3" style="color: #CBD5E1;"></i>
+                            <p>No recent completions</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div class="stat-icon success">
+                        <i class="bi bi-graph-up"></i>
+                    </div>
+                </div>
+                <div class="stat-label">Average Streak</div>
+                <div class="stat-value">@Model.AverageStreak<span style="font-size: 0.6em; margin-left: 8px; font-weight: 400;">days</span></div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div class="stat-icon warning">
+                        <i class="bi bi-trophy-fill"></i>
+                    </div>
+                </div>
+                <div class="stat-label">Longest Streak</div>
+                <div class="stat-value">@Model.LongestStreak<span style="font-size: 0.6em; margin-left: 8px; font-weight: 400;">days</span></div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div class="stat-icon info">
+                        <i class="bi bi-clock-fill"></i>
+                    </div>
+                </div>
+                <div class="stat-label">Pending Habits</div>
+                <div class="stat-value">@Model.PendingHabits</div>
+            </div>
+        </div>
+    </div>
+</div>

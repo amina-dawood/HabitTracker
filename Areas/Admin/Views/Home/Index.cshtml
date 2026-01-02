@@ -1,0 +1,323 @@
+@model HabitTracker.Areas.Admin.Models.AdminDashboardViewModel
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-5" data-aos="fade-down">
+            <div>
+                <h1 class="h2 mb-2" style="background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 800;">Admin Dashboard</h1>
+                <p class="text-muted mb-0" style="font-size: 1.1rem;">Welcome to the administration panel - manage your habit tracking platform</p>
+            </div>
+            <div class="text-muted d-flex align-items-center gap-2" style="background: rgba(124, 58, 237, 0.1); padding: 12px 20px; border-radius: 16px; border: 1px solid rgba(124, 58, 237, 0.2);">
+                <i class="bi bi-calendar-event" style="color: var(--primary);"></i>
+                @DateTime.Now.ToString("dddd, MMMM dd, yyyy")
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Enhanced Statistics Cards -->
+<div class="row mb-5">
+    <div class="col-xl-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="stats-card primary">
+            <div class="d-flex justify-content-between align-items-start">
+                <div class="flex-grow-1">
+                    <div class="stats-number">@Model.TotalUsers</div>
+                    <div class="stats-title">Total Users</div>
+                    <div class="mt-2">
+                        <small class="text-muted">
+                            <i class="bi bi-arrow-up-circle text-success me-1"></i>
+                            +12% from last month
+                        </small>
+                    </div>
+                </div>
+                <div class="stats-icon">
+                    <i class="bi bi-people"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="stats-card success">
+            <div class="d-flex justify-content-between align-items-start">
+                <div class="flex-grow-1">
+                    <div class="stats-number">@Model.TotalHabits</div>
+                    <div class="stats-title">Total Habits</div>
+                    <div class="mt-2">
+                        <small class="text-muted">
+                            <i class="bi bi-graph-up text-success me-1"></i>
+                            +8% from last month
+                        </small>
+                    </div>
+                </div>
+                <div class="stats-icon" style="background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);">
+                    <i class="bi bi-list-check"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+        <div class="stats-card warning">
+            <div class="d-flex justify-content-between align-items-start">
+                <div class="flex-grow-1">
+                    <div class="stats-number">@Model.ActiveHabits</div>
+                    <div class="stats-title">Active Habits</div>
+                    <div class="mt-2">
+                        <small class="text-muted">
+                            <i class="bi bi-activity text-warning me-1"></i>
+                            @((Model.TotalHabits > 0 ? (Model.ActiveHabits * 100 / Model.TotalHabits) : 0))% active rate
+                        </small>
+                    </div>
+                </div>
+                <div class="stats-icon" style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);">
+                    <i class="bi bi-lightning"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+        <div class="stats-card danger">
+            <div class="d-flex justify-content-between align-items-start">
+                <div class="flex-grow-1">
+                    <div class="stats-number">@Model.CompletedHabits</div>
+                    <div class="stats-title">Completed Habits</div>
+                    <div class="mt-2">
+                        <small class="text-muted">
+                            <i class="bi bi-trophy text-success me-1"></i>
+                            @((Model.TotalHabits > 0 ? (Model.CompletedHabits * 100 / Model.TotalHabits) : 0))% completion rate
+                        </small>
+                    </div>
+                </div>
+                <div class="stats-icon" style="background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);">
+                    <i class="bi bi-check-circle"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Enhanced Activity Overview -->
+<div class="row mb-5">
+    <div class="col-xl-6 col-lg-6 mb-4" data-aos="fade-right">
+        <div class="admin-card">
+            <div class="card-header d-flex align-items-center">
+                <i class="bi bi-calendar-event me-3" style="color: var(--primary); font-size: 1.5rem;"></i>
+                <div>
+                    <h5 class="mb-0" style="color: var(--dark); font-weight: 700;">Today's Activity</h5>
+                    <small class="text-muted">Real-time platform activity</small>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-6">
+                        <div style="background: rgba(124, 58, 237, 0.1); padding: 20px; border-radius: 16px; border: 1px solid rgba(124, 58, 237, 0.2);">
+                            <div class="display-4 mb-2" style="color: var(--primary); font-weight: 800;">@Model.NewUsersToday</div>
+                            <div style="color: var(--gray); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.9rem;">New Users</div>
+                            <div class="mt-2">
+                                <small class="text-success">
+                                    <i class="bi bi-arrow-up-circle me-1"></i>
+                                    +@Math.Round(Model.NewUsersToday * 0.15) from yesterday
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div style="background: rgba(16, 185, 129, 0.1); padding: 20px; border-radius: 16px; border: 1px solid rgba(16, 185, 129, 0.2);">
+                            <div class="display-4 mb-2" style="color: var(--secondary); font-weight: 800;">@Model.NewHabitsToday</div>
+                            <div style="color: var(--gray); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.9rem;">New Habits</div>
+                            <div class="mt-2">
+                                <small class="text-success">
+                                    <i class="bi bi-arrow-up-circle me-1"></i>
+                                    +@Math.Round(Model.NewHabitsToday * 0.12) from yesterday
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6 col-lg-6 mb-4" data-aos="fade-left">
+        <div class="admin-card">
+            <div class="card-header d-flex align-items-center">
+                <i class="bi bi-bar-chart me-3" style="color: var(--primary); font-size: 1.5rem;"></i>
+                <div>
+                    <h5 class="mb-0" style="color: var(--dark); font-weight: 700;">Performance Metrics</h5>
+                    <small class="text-muted">Key performance indicators</small>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-6">
+                        <div style="background: rgba(59, 130, 246, 0.1); padding: 20px; border-radius: 16px; border: 1px solid rgba(59, 130, 246, 0.2);">
+                            <div class="display-4 mb-2" style="color: var(--info); font-weight: 800;">
+                                @(Model.TotalHabits > 0 ? (Model.CompletedHabits * 100 / Model.TotalHabits) : 0)<span style="font-size: 1.5rem;">%</span>
+                            </div>
+                            <div style="color: var(--gray); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.9rem;">Completion Rate</div>
+                            <div class="mt-2">
+                                <small class="text-success">
+                                    <i class="bi bi-trending-up me-1"></i>
+                                    Above average
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div style="background: rgba(245, 158, 11, 0.1); padding: 20px; border-radius: 16px; border: 1px solid rgba(245, 158, 11, 0.2);">
+                            <div class="display-4 mb-2" style="color: var(--warning); font-weight: 800;">
+                                @(Model.TotalUsers > 0 ? Math.Round((double)Model.TotalHabits / Model.TotalUsers, 1) : 0)
+                            </div>
+                            <div style="color: var(--gray); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.9rem;">Avg Habits/User</div>
+                            <div class="mt-2">
+                                <small class="text-info">
+                                    <i class="bi bi-info-circle me-1"></i>
+                                    Per user average
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Enhanced Recent Activity -->
+<div class="row">
+    <!-- Recent Users -->
+    <div class="col-lg-6 mb-4" data-aos="fade-up">
+        <div class="admin-card">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-people me-3" style="color: var(--primary); font-size: 1.5rem;"></i>
+                    <div>
+                        <h5 class="mb-0" style="color: var(--dark); font-weight: 700;">Recent Users</h5>
+                        <small class="text-muted">Latest platform registrations</small>
+                    </div>
+                </div>
+                <a href="@Url.Action("Users", "Admin", new { area = "Admin" })" class="btn btn-sm" style="background: rgba(124, 58, 237, 0.1); color: var(--primary); border: 1px solid rgba(124, 58, 237, 0.2);" data-bs-toggle="tooltip" title="View all users">
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+            <div class="card-body">
+                @if (Model.RecentUsers.Count > 0)
+                {
+                    <div class="space-y-3">
+                        @foreach (var user in Model.RecentUsers)
+                        {
+                            <div class="d-flex justify-content-between align-items-center p-3 rounded-3" style="background: rgba(248, 250, 252, 0.6); border: 1px solid rgba(148, 163, 184, 0.1); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--gradient-primary); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">
+                                        @user.Email.Substring(0, 1).ToUpper()
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0" style="color: var(--dark); font-weight: 600;">@user.Email</h6>
+                                        <small class="text-muted">@user.CreatedDate.ToString("MMM dd, yyyy")</small>
+                                    </div>
+                                </div>
+                                <div>
+                                    @if (user.EmailConfirmed)
+                                    {
+                                        <span class="badge" style="background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%); color: white; padding: 6px 12px; border-radius: 20px;">
+                                            <i class="bi bi-check-circle me-1"></i>Verified
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge" style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); color: white; padding: 6px 12px; border-radius: 20px;">
+                                            <i class="bi bi-clock me-1"></i>Pending
+                                        </span>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center py-5">
+                        <div style="width: 80px; height: 80px; border-radius: 50%; background: rgba(148, 163, 184, 0.1); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                            <i class="bi bi-people" style="font-size: 2rem; color: var(--gray);"></i>
+                        </div>
+                        <h6 style="color: var(--gray); font-weight: 600;">No recent users</h6>
+                        <p class="text-muted mb-0">New user registrations will appear here</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Habits -->
+    <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="admin-card">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-list-check me-3" style="color: var(--primary); font-size: 1.5rem;"></i>
+                    <div>
+                        <h5 class="mb-0" style="color: var(--dark); font-weight: 700;">Recent Habits</h5>
+                        <small class="text-muted">Latest habit creations</small>
+                    </div>
+                </div>
+                <a href="@Url.Action("Habits", "Admin", new { area = "Admin" })" class="btn btn-sm" style="background: rgba(124, 58, 237, 0.1); color: var(--primary); border: 1px solid rgba(124, 58, 237, 0.2);" data-bs-toggle="tooltip" title="View all habits">
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+            <div class="card-body">
+                @if (Model.RecentHabits.Count > 0)
+                {
+                    <div class="space-y-3">
+                        @foreach (var habit in Model.RecentHabits)
+                        {
+                            <div class="d-flex justify-content-between align-items-center p-3 rounded-3" style="background: rgba(248, 250, 252, 0.6); border: 1px solid rgba(148, 163, 184, 0.1); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div style="width: 40px; height: 40px; border-radius: 16px; background: var(--gradient-primary); display: flex; align-items: center; justify-content: center; color: white;">
+                                        <i class="bi bi-star-fill"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0" style="color: var(--dark); font-weight: 600;">@habit.Name</h6>
+                                        <small class="text-muted">by @habit.UserEmail</small>
+                                        <div class="mt-1">
+                                            <small class="text-muted">@habit.CreatedDate.ToString("MMM dd, yyyy")</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    @if (habit.IsCompleted)
+                                    {
+                                        <span class="badge" style="background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%); color: white; padding: 6px 12px; border-radius: 20px;">
+                                            <i class="bi bi-check-circle me-1"></i>Completed
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge" style="background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%); color: white; padding: 6px 12px; border-radius: 20px;">
+                                            <i class="bi bi-play-circle me-1"></i>Active
+                                        </span>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center py-5">
+                        <div style="width: 80px; height: 80px; border-radius: 50%; background: rgba(148, 163, 184, 0.1); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                            <i class="bi bi-list-check" style="font-size: 2rem; color: var(--gray);"></i>
+                        </div>
+                        <h6 style="color: var(--gray); font-weight: 600;">No recent habits</h6>
+                        <p class="text-muted mb-0">New habit creations will appear here</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

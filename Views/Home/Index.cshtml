@@ -1,0 +1,629 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "HabitFlow - Build Better Habits";
+}
+
+<link rel="stylesheet" href="~/css/pages/Home.css" />
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50
+        });
+    </script>
+}
+
+<!-- ===== SIMPLE HERO SECTION ===== -->
+<div style="min-height: 80vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div style="text-align: center; color: white; max-width: 600px; padding: 2rem;">
+        <h1 style="font-size: 3rem; font-weight: bold; margin-bottom: 1rem;">
+            Welcome to <span style="color: #fbbf24;">HabitFlow</span>
+        </h1>
+        <p style="font-size: 1.25rem; margin-bottom: 2rem; opacity: 0.9;">
+            Build better habits and transform your life with our modern habit tracking platform.
+        </p>
+        <a href="/Identity/Account/Register" style="background: white; color: #667eea; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: bold; display: inline-block;">
+            Get Started Free
+        </a>
+    </div>
+</div>
+
+<!-- ===== SIMPLE FEATURES ===== -->
+<div style="padding: 4rem 0; background: #f8fafc;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+        <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem; color: #1e293b;">
+            Why Choose HabitFlow?
+        </h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+            <div style="background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center;">
+                <i class="bi bi-check-circle-fill" style="font-size: 3rem; color: #10b981; margin-bottom: 1rem;"></i>
+                <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Easy Tracking</h3>
+                <p style="color: #64748b;">Simple and intuitive interface to track your daily habits.</p>
+            </div>
+            <div style="background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center;">
+                <i class="bi bi-graph-up" style="font-size: 3rem; color: #3b82f6; margin-bottom: 1rem;"></i>
+                <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Progress Analytics</h3>
+                <p style="color: #64748b;">Detailed insights and analytics to understand your progress.</p>
+            </div>
+            <div style="background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center;">
+                <i class="bi bi-trophy-fill" style="font-size: 3rem; color: #f59e0b; margin-bottom: 1rem;"></i>
+                <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Streak Rewards</h3>
+                <p style="color: #64748b;">Maintain streaks and earn rewards for consistency.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== FEATURES SECTION ===== -->
+<section id="features" class="features">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">
+                Powerful Features for<br>
+                <span class="text-gradient">Habit Success</span>
+            </h2>
+            <p class="section-description">
+                Everything you need to build, track, and maintain positive habits with our comprehensive platform
+            </p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-icon">
+                    <i class="bi bi-lightning-charge"></i>
+                </div>
+                <h3>Smart Habit Creation</h3>
+                <p>AI-powered suggestions and scientifically-backed habit templates to help you choose habits that stick.</p>
+                <div class="feature-highlight">
+                    <span class="badge badge-primary">AI Powered</span>
+                </div>
+            </div>
+
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-icon">
+                    <i class="bi bi-bar-chart-line"></i>
+                </div>
+                <h3>Advanced Analytics</h3>
+                <p>Detailed insights into your habit patterns, success rates, and personalized recommendations for improvement.</p>
+                <div class="feature-highlight">
+                    <span class="badge badge-secondary">Analytics</span>
+                </div>
+            </div>
+
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-icon">
+                    <i class="bi bi-fire"></i>
+                </div>
+                <h3>Streak Protection</h3>
+                <p>Advanced streak recovery system and motivational reminders to help you maintain consistency.</p>
+                <div class="feature-highlight">
+                    <span class="badge badge-warning">Motivation</span>
+                </div>
+            </div>
+
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="feature-icon">
+                    <i class="bi bi-people"></i>
+                </div>
+                <h3>Community Support</h3>
+                <p>Join habit-building communities, share progress, and get support from like-minded individuals.</p>
+                <div class="feature-highlight">
+                    <span class="badge badge-success">Community</span>
+                </div>
+            </div>
+
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+                <div class="feature-icon">
+                    <i class="bi bi-phone"></i>
+                </div>
+                <h3>Cross-Platform Sync</h3>
+                <p>Seamlessly sync your habits across all devices with real-time updates and offline functionality.</p>
+                <div class="feature-highlight">
+                    <span class="badge badge-info">Sync</span>
+                </div>
+            </div>
+
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="600">
+                <div class="feature-icon">
+                    <i class="bi bi-shield-check"></i>
+                </div>
+                <h3>Privacy First</h3>
+                <p>Your data is encrypted, secure, and never shared. We prioritize your privacy and data protection.</p>
+                <div class="feature-highlight">
+                    <span class="badge badge-neutral">Security</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section class="how-it-works">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">
+                How It <span class="text-gradient">Works</span>
+            </h2>
+            <p class="section-description">
+                Start your habit-building journey in three simple steps
+            </p>
+        </div>
+
+        <div class="steps-container">
+            <div class="step-card" data-aos="fade-right">
+                <div class="step-number">01</div>
+                <div class="step-content">
+                    <h3>Choose Your Habits</h3>
+                    <p>Select from our curated library of proven habits or create custom ones that match your goals and lifestyle.</p>
+                </div>
+                <div class="step-visual">
+                    <i class="bi bi-plus-circle"></i>
+                </div>
+            </div>
+
+            <div class="step-connector">
+                <i class="bi bi-arrow-right"></i>
+            </div>
+
+            <div class="step-card" data-aos="fade-up">
+                <div class="step-number">02</div>
+                <div class="step-content">
+                    <h3>Set Your Schedule</h3>
+                    <p>Define when and how often you want to practice each habit. Our smart scheduling adapts to your routine.</p>
+                </div>
+                <div class="step-visual">
+                    <i class="bi bi-calendar-check"></i>
+                </div>
+            </div>
+
+            <div class="step-connector">
+                <i class="bi bi-arrow-right"></i>
+            </div>
+
+            <div class="step-card" data-aos="fade-left">
+                <div class="step-number">03</div>
+                <div class="step-content">
+                    <h3>Track & Succeed</h3>
+                    <p>Mark habits complete daily, watch your streaks grow, and celebrate milestones on your journey to success.</p>
+                </div>
+                <div class="step-visual">
+                    <i class="bi bi-trophy"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="testimonials">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">
+                What Our <span class="text-gradient">Users Say</span>
+            </h2>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="testimonial-content">
+                    <p>"HabitFlow completely transformed my daily routine. I've maintained a 6-month streak on my morning meditation and reading habits. The analytics helped me understand what works best."</p>
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <span>SM</span>
+                    </div>
+                    <div class="author-info">
+                        <div class="author-name">Sarah Mitchell</div>
+                        <div class="author-role">Product Manager</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="testimonial-content">
+                    <p>"The streak protection feature saved me multiple times when I was about to break my workout routine. Now I'm stronger than ever and have lost 30 pounds!"</p>
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <span>MJ</span>
+                    </div>
+                    <div class="author-info">
+                        <div class="author-name">Mike Johnson</div>
+                        <div class="author-role">Fitness Trainer</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="testimonial-content">
+                    <p>"As someone who's struggled with consistency, HabitFlow's reminders and progress tracking finally helped me build sustainable habits. Highly recommend!"</p>
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <span>AL</span>
+                    </div>
+                    <div class="author-info">
+                        <div class="author-name">Anna Liu</div>
+                        <div class="author-role">Designer</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CTA SECTION ===== -->
+<section class="cta">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Ready to Transform Your Life?</h2>
+            <p>Join 50,000+ users who have already started their journey to better habits</p>
+            <div class="cta-actions">
+                <a href="/Identity/Account/Register" class="btn btn-primary btn-xl">
+                    <i class="bi bi-person-plus"></i>
+                    <span>Start Free Today</span>
+                </a>
+                <div class="cta-features">
+                    <span><i class="bi bi-check-circle"></i> No credit card required</span>
+                    <span><i class="bi bi-check-circle"></i> 14-day free trial</span>
+                    <span><i class="bi bi-check-circle"></i> Cancel anytime</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@* 
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "HabitFlow - Build Better Habits";
+}
+
+<link rel="stylesheet" href="~/css/pages/Home.css" />
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50
+        });
+    </script>
+}
+
+<!-- ===== HERO SECTION ===== -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-badge">
+                    <i class="bi bi-lightning-charge-fill"></i>
+                    <span>Modern Habit Tracking Platform</span>
+                </div>
+                <h1 class="hero-title">
+                    Build Better Habits,
+                    <span class="text-gradient">Transform Your Life</span>
+                </h1>
+                <p class="hero-description">
+                    The most intuitive habit tracking platform designed to help you create lasting change through consistent daily actions.
+                </p>
+                <div class="hero-actions">
+                    <a href="/Identity/Account/Register" class="btn btn-primary">
+                <i class="bi bi-rocket-takeoff"></i>
+                <span>Get Started Free</span>
+            </a>
+                    <a href="#features" class="btn btn-outline">
+                        <i class="bi bi-arrow-down-circle"></i>
+                        <span>Learn More</span>
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Free to Use</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">Easy</span>
+                        <span class="stat-label">Setup</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Access</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-dashboard-preview">
+                    <div class="preview-header">
+                        <div class="preview-brand">
+                            <div class="brand-icon">
+                                <i class="bi bi-lightning-charge-fill"></i>
+                            </div>
+                            <span>HabitFlow</span>
+                        </div>
+                        <div class="preview-user">
+                            <i class="bi bi-person-fill"></i>
+                        </div>
+                    </div>
+                    <div class="preview-content">
+                        <div class="preview-stats">
+                            <div class="preview-stat-card">
+                                <div class="stat-icon">
+                                    <i class="bi bi-fire"></i>
+                                </div>
+                                <span class="stat-value">23</span>
+                                <span class="stat-name">Day Streak</span>
+                            </div>
+                            <div class="preview-stat-card">
+                                <div class="stat-icon">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                </div>
+                                <span class="stat-value">8/10</span>
+                                <span class="stat-name">Completed</span>
+                            </div>
+                            <div class="preview-stat-card">
+                                <div class="stat-icon">
+                                    <i class="bi bi-trophy-fill"></i>
+                                </div>
+                                <span class="stat-value">12</span>
+                                <span class="stat-name">Achievements</span>
+                            </div>
+                        </div>
+                        <div class="preview-habits">
+                            <div class="preview-habit">
+                                <div class="habit-info">
+                                    <i class="bi bi-book"></i>
+                                    <span>Morning Reading</span>
+                                </div>
+                                <div class="habit-progress">
+                                    <div class="progress-bar" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="preview-habit">
+                                <div class="habit-info">
+                                    <i class="bi bi-heart-pulse"></i>
+                                    <span>Exercise</span>
+                                </div>
+                                <div class="habit-progress">
+                                    <div class="progress-bar" style="width: 70%"></div>
+                                </div>
+                            </div>
+                            <div class="preview-habit">
+                                <div class="habit-info">
+                                    <i class="bi bi-cup-hot"></i>
+                                    <span>Meditation</span>
+                                </div>
+                                <div class="habit-progress">
+                                    <div class="progress-bar" style="width: 95%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FEATURES SECTION ===== -->
+<section id="features" class="features">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">
+                Powerful Features for<br>
+                <span class="text-gradient">Habit Success</span>
+            </h2>
+            <p class="section-description">
+                Everything you need to build, track, and maintain positive habits with our comprehensive platform
+            </p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-icon">
+                    <i class="bi bi-lightning-charge"></i>
+                </div>
+                <h3>Smart Habit Creation</h3>
+                <p>AI-powered suggestions and scientifically-backed habit templates to help you choose habits that stick.</p>
+                <div class="feature-highlight">
+                    <span class="badge badge-primary">AI Powered</span>
+                </div>
+            </div>
+
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-icon">
+                    <i class="bi bi-bar-chart-line"></i>
+                </div>
+                <h3>Advanced Analytics</h3>
+                <p>Detailed insights into your habit patterns, success rates, and personalized recommendations for improvement.</p>
+                <div class="feature-highlight">
+                    <span class="badge badge-secondary">Analytics</span>
+                </div>
+            </div>
+
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-icon">
+                    <i class="bi bi-fire"></i>
+                </div>
+                <h3>Streak Protection</h3>
+                <p>Advanced streak recovery system and motivational reminders to help you maintain consistency.</p>
+                <div class="feature-highlight">
+                    <span class="badge badge-warning">Motivation</span>
+                </div>
+            </div>
+
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="feature-icon">
+                    <i class="bi bi-people"></i>
+                </div>
+                <h3>Community Support</h3>
+                <p>Join habit-building communities, share progress, and get support from like-minded individuals.</p>
+                <div class="feature-highlight">
+                    <span class="badge badge-success">Community</span>
+                </div>
+            </div>
+
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+                <div class="feature-icon">
+                    <i class="bi bi-phone"></i>
+                </div>
+                <h3>Cross-Platform Sync</h3>
+                <p>Seamlessly sync your habits across all devices with real-time updates and offline functionality.</p>
+                <div class="feature-highlight">
+                    <span class="badge badge-info">Sync</span>
+                </div>
+            </div>
+
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="600">
+                <div class="feature-icon">
+                    <i class="bi bi-shield-check"></i>
+                </div>
+                <h3>Privacy First</h3>
+                <p>Your data is encrypted, secure, and never shared. We prioritize your privacy and data protection.</p>
+                <div class="feature-highlight">
+                    <span class="badge badge-neutral">Security</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section class="how-it-works">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">
+                How It <span class="text-gradient">Works</span>
+            </h2>
+            <p class="section-description">
+                Start your habit-building journey in three simple steps
+            </p>
+        </div>
+
+        <div class="steps-container">
+            <div class="step-card" data-aos="fade-right">
+                <div class="step-number">01</div>
+                <div class="step-content">
+                    <h3>Choose Your Habits</h3>
+                    <p>Select from our curated library of proven habits or create custom ones that match your goals and lifestyle.</p>
+                </div>
+                <div class="step-visual">
+                    <i class="bi bi-plus-circle"></i>
+                </div>
+            </div>
+
+            <div class="step-connector">
+                <i class="bi bi-arrow-right"></i>
+            </div>
+
+            <div class="step-card" data-aos="fade-up">
+                <div class="step-number">02</div>
+                <div class="step-content">
+                    <h3>Set Your Schedule</h3>
+                    <p>Define when and how often you want to practice each habit. Our smart scheduling adapts to your routine.</p>
+                </div>
+                <div class="step-visual">
+                    <i class="bi bi-calendar-check"></i>
+                </div>
+                </div>
+
+            <div class="step-connector">
+                <i class="bi bi-arrow-right"></i>
+            </div>
+
+            <div class="step-card" data-aos="fade-left">
+                <div class="step-number">03</div>
+                <div class="step-content">
+                    <h3>Track & Succeed</h3>
+                    <p>Mark habits complete daily, watch your streaks grow, and celebrate milestones on your journey to success.</p>
+                </div>
+                <div class="step-visual">
+                    <i class="bi bi-trophy"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="testimonials">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">
+                What Our <span class="text-gradient">Users Say</span>
+            </h2>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="testimonial-content">
+                    <p>HabitFlow completely transformed my daily routine. I've maintained a 6-month streak on my morning meditation and reading habits. The analytics helped me understand what works best.</p>
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <span>SM</span>
+                    </div>
+                    <div class="author-info">
+                        <span class="author-name">Sarah Mitchell</span>
+                        <span class="author-role">Product Manager</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="testimonial-content">
+                    <p>The streak protection feature saved me multiple times when I was about to break my workout routine. Now I'm stronger than ever and have lost 30 pounds!</p>
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <span>MJ</span>
+                    </div>
+                    <div class="author-info">
+                        <span class="author-name">Mike Johnson</span>
+                        <span class="author-role">Fitness Trainer</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="testimonial-content">
+                    <p>As someone who's struggled with consistency, HabitFlow's reminders and progress tracking finally helped me build sustainable habits. Highly recommend!</p>
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <span>AL</span>
+                    </div>
+                    <div class="author-info">
+                        <span class="author-name">Anna Liu</span>
+                        <span class="author-role">Designer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CTA SECTION ===== -->
+<section class="cta">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Ready to Transform Your Life?</h2>
+            <p>Join thousands of users who have already started their journey to better habits</p>
+            <div class="cta-actions">
+                <a href="/Identity/Account/Register" class="btn btn-primary btn-xl">
+            <i class="bi bi-person-plus"></i>
+                    <span>Start Free Today</span>
+                </a>
+                <div class="cta-features">
+                    <span><i class="bi bi-check-circle"></i> No credit card required</span>
+                    <span><i class="bi bi-check-circle"></i> Free forever</span>
+                    <span><i class="bi bi-check-circle"></i> Easy setup</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> *@

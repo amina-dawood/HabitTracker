@@ -1,0 +1,193 @@
+@* @page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div class="row">
+    <div class="col-md-4">
+        <section>
+            <form id="account" method="post">
+                <h2>Use a local account to log in.</h2>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                    <label asp-for="Input.Email" class="form-label">Email</label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
+                    <label asp-for="Input.Password" class="form-label">Password</label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="checkbox mb-3">
+                    <label asp-for="Input.RememberMe" class="form-label">
+                        <input class="form-check-input" asp-for="Input.RememberMe" />
+                        @Html.DisplayNameFor(m => m.Input.RememberMe)
+                    </label>
+                </div>
+                <div>
+                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                </div>
+                <div>
+                    <p>
+                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                    </p>
+                    <p>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                    </p>
+                    <p>
+                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                    </p>
+                </div>
+            </form>
+        </section>
+    </div>
+    <div class="col-md-6 col-md-offset-2">
+        <section>
+            <h3>
+                <!--Use another service to log in.</h3>-->
+            <hr />
+            @{
+                if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                {
+                    <div>
+                        <p>
+                            <!-- There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
+                                                 about setting up this ASP.NET application to support logging in via external services</a>
+                            . -->
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                        <div>
+                            <p>
+                                @foreach (var provider in Model.ExternalLogins!)
+                                {
+                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                }
+                            </p>
+                        </div>
+                    </form>
+                }
+            }
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+ *@
+
+@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<link rel="stylesheet" href="~/css/pages/login.css" />
+
+<div class="auth-wrapper">
+    <div class="auth-container fade-in-up">
+        <!-- Login Form Section -->
+        <div class="auth-left">
+            <div class="auth-form">
+                <div class="form-header">
+                    <h1 class="form-title">Welcome Back! 👋</h1>
+                    <p class="form-subtitle">Sign in to continue building your habits</p>
+                </div>
+
+                <form id="account" method="post">
+                    @if (TempData["Info"] != null)
+                    {
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle me-2"></i>
+                            @TempData["Info"]
+                        </div>
+                    }
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        var firstError = ViewData.ModelState.Values.SelectMany(v => v.Errors).FirstOrDefault();
+                        if (firstError != null)
+                        {
+                            <div class="alert alert-danger">
+                                <i class="bi bi-exclamation-triangle me-2"></i>
+                                @firstError.ErrorMessage
+                            </div>
+                        }
+                    }
+
+                    <div class="form-group">
+                        <label asp-for="Input.Email" class="form-label">Email Address</label>
+                        <input asp-for="Input.Email" class="form-control" autocomplete="username"
+                               placeholder="Enter your email address" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Input.Password" class="form-label">Password</label>
+                        <input asp-for="Input.Password" class="form-control" autocomplete="current-password"
+                               placeholder="Enter your password" type="password" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" asp-for="Input.RememberMe" />
+                        <label class="form-check-label" asp-for="Input.RememberMe">
+                            Keep me signed in
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-auth">
+                        <i class="bi bi-box-arrow-in-right"></i>
+                        <span>Sign In</span>
+                    </button>
+
+                    <div class="auth-links">
+                        <a id="forgot-password" asp-page="./ForgotPassword" class="auth-link">
+                            Forgot password?
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Branding Section -->
+        <div class="auth-right">
+            <div class="auth-brand">
+                <div class="brand-icon-wrapper">
+                    <i class="bi bi-check-circle-fill brand-icon"></i>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-main">HabitTracker</span>
+                    <span class="brand-tagline">Build Better Habits</span>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <h3 style="color: white; font-weight: 600; margin-bottom: 20px; font-size: 1.4rem;">
+                    Ready to Start Your Journey?
+                </h3>
+                <p style="color: rgba(255, 255, 255, 0.8); line-height: 1.6; margin-bottom: 30px;">
+                    Join thousands of users who are transforming their lives through consistent habit building.
+                </p>
+                <div class="auth-divider">Don't have an account?</div>
+                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-auth" style="background: rgba(255, 255, 255, 0.2); border: 2px solid rgba(255, 255, 255, 0.3); color: white; box-shadow: none; width: auto; padding: 14px 32px;">
+                    <i class="bi bi-person-plus"></i>
+                    <span>Create Account</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

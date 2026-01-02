@@ -1,0 +1,87 @@
+/* ===== AUTH PAGES NAVBAR & LAYOUT ===== */
+
+/* Compact Navbar for Auth Pages */
+.auth-navbar {
+    padding: 0.5rem 0 !important;
+    min-height: 60px !important;
+    max-height: 60px !important;
+}
+
+.auth-navbar .brand-container {
+    gap: 10px;
+}
+
+.auth-navbar .brand-icon {
+    font-size: 1.5rem !important;
+    width: 32px;
+    height: 32px;
+}
+
+.auth-navbar .brand-main {
+    font-size: 1.2rem !important;
+    font-weight: 700;
+}
+
+.auth-navbar .brand-tagline {
+    display: none;
+}
+
+.auth-navbar .nav-link {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9) !important;
+    transition: all 0.3s ease;
+}
+
+.auth-navbar .nav-link:hover {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+}
+
+.auth-navbar .navbar-auth {
+    margin-left: 1rem;
+}
+
+.auth-navbar .navbar-auth .btn-login,
+.auth-navbar .navbar-auth .btn-register {
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+}
+
+/* Main Content for Auth Pages */
+.auth-main {
+    margin-top: 60px !important;
+    min-height: calc(100vh - 60px);
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    background-attachment: fixed;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .auth-navbar {
+        min-height: 55px !important;
+        max-height: 55px !important;
+        padding: 0.4rem 0 !important;
+    }
+    
+    .auth-navbar .brand-main {
+        font-size: 1rem !important;
+    }
+    
+    .auth-navbar .brand-icon {
+        font-size: 1.2rem !important;
+        width: 28px;
+        height: 28px;
+    }
+    
+    .auth-main {
+        margin-top: 55px !important;
+        min-height: calc(100vh - 55px);
+    }
+}
+

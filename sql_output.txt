@@ -1,0 +1,4 @@
+HabitCompletions table created successfully!
+
+(6 rows affected)
+Existing habits reset for daily completion system.
